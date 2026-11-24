@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SuriBagoClick helps Filipinos recognize common online scam warning signs through interactive learning.">
+  <title>SuriBagoClick — Think Before You Click</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="announcement"><span class="pulse"></span> DIGITAL SAFETY STARTS WITH YOU <span class="announcement-right">A student-built awareness project</span></div>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="SuriBagoClick home"><span class="brand-mark">S<span>✓</span></span><span>SuriBago<span class="brand-accent">Click</span><small>THINK BEFORE YOU CLICK</small></span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav id="mainNav">
+      <a href="#learn">Learn</a><a href="#checker">Scam checker</a><a href="#simulator">Simulator</a><a href="#quiz">Quiz</a>
+      <a class="nav-cta" href="#checker">Check a message <span>↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section-wrap" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR EVERYDAY DIGITAL SAFETY COMPANION</div>
+        <h1>Pause. Check.<br><span>Then click.</span></h1>
+        <p class="hero-lead">Online scams are designed to rush you. Build the habit of spotting warning signs before you share information, send money, or tap a link.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#checker">Try the scam checker <span>→</span></a><a class="text-link" href="#learn">Explore safety tips <span>↓</span></a></div>
+        <div class="trust-row"><div class="avatar-stack"><i>✓</i><i>!</i><i>↗</i></div><p><b>Learn to recognize red flags.</b><br><span>No account or personal details needed.</span></p></div>
+      </div>
+      <div class="hero-visual">
+        <div class="orb orb-one"></div><div class="orb orb-two"></div>
+        <div class="dashboard-card">
+          <div class="dash-top"><span class="window-dots">● ● ●</span><span>MESSAGE SAFETY PREVIEW</span><span class="shield">⌑</span></div>
+          <div class="message-label">SAMPLE MESSAGE <span>SIMULATED</span></div>
+          <div class="fake-message"><div class="sender"><div class="sender-icon">?</div><div><b>Unknown Sender</b><small>Just now · SMS</small></div></div><p>Congratulations! You won ₱50,000. Claim now. Pay a ₱350 processing fee to receive your prize.</p><div class="fake-link">claim-prize.example <span>↗</span></div></div>
+          <div class="risk-summary"><div class="risk-icon">!</div><div><b>Potential warning signs</b><small>Unexpected prize · Upfront fee · Urgency</small></div><span class="risk-tag">CAUTION</span></div>
+          <div class="dash-foot"><span>◉</span> Practice with examples. Never submit real passwords or OTPs.</div>
+        </div>
+        <div class="floating-note note-top"><span>✳</span><div><b>Think critically</b><small>Verify through official channels</small></div></div>
+        <div class="floating-note note-bottom"><span class="note-check">✓</span><div><b>Small pause, big protection</b><small>Make checking a habit</small></div></div>
+      </div>
+    </section>
+
+    <section class="stats-strip"><div><b>01</b><span>Recognize common red flags</span></div><div><b>02</b><span>Practice safer decisions</span></div><div><b>03</b><span>Know where to get help</span></div></section>
+
+    <section class="section-wrap section-block" id="learn">
+      <div class="section-heading"><div><div class="eyebrow">KNOW WHAT TO LOOK FOR</div><h2>Scams often leave<br><span>clues behind.</span></h2></div><p>One warning sign does not prove a message is fraudulent. But several warning signs mean you should stop and verify independently.</p></div>
+      <div class="redflag-grid">
+        <article class="flag-card"><div class="flag-icon coral">₱</div><h3>Unexpected money or prizes</h3><p>You are told you won something you never joined, or must pay first to receive it.</p><span>01 / UNEXPECTED REWARD</span></article>
+        <article class="flag-card"><div class="flag-icon purple">⌁</div><h3>Pressure and urgency</h3><p>The sender says “act now,” threatens account closure, or discourages you from checking.</p><span>02 / RUSH TACTICS</span></article>
+        <article class="flag-card"><div class="flag-icon blue">↗</div><h3>Suspicious links</h3><p>A link may use misspellings, strange domains, or imitate a trusted organization.</p><span>03 / LINK CHECK</span></article>
+        <article class="flag-card"><div class="flag-icon yellow">▣</div><h3>Requests for secrets</h3><p>Someone asks for your password, PIN, or one-time password (OTP).</p><span>04 / PRIVATE INFORMATION</span></article>
+      </div>
+    </section>
+
+    <section class="checker-section" id="checker">
+      <div class="section-wrap checker-layout">
+        <div class="checker-intro"><div class="eyebrow light-eyebrow">INTERACTIVE TOOL 01</div><h2>Not sure about<br>that message?</h2><p>Paste a message's text (not the link itself). SuriBagoClick checks for common warning signs and explains what to do next.</p><div class="privacy-note"><span>⌑</span><div><b>Privacy-first by design</b><small>Your text is analyzed only in this browser. It is not uploaded or saved.</small></div></div></div>
+        <div class="checker-panel">
+          <div class="panel-title"><div><span class="step-label">MESSAGE REVIEW</span><h3>Check for red flags</h3></div><span class="panel-symbol">⌕</span></div>
+          <label for="messageInput">Message text</label>
+          <textarea id="messageInput" maxlength="1200" placeholder="Example: Congratulations! You won ₱50,000. Pay a processing fee now to claim your prize..."></textarea>
+          <div class="input-meta"><span id="charCount">0 / 1,200</span><span>Do not include passwords, OTPs, or personal data.</span></div>
+          <button class="btn btn-primary full-btn" id="analyzeBtn">Analyze warning signs <span>→</span></button>
+          <div id="checkerResult" class="result-box" aria-live="polite"><div class="result-placeholder"><span>✳</span><p>Your results will appear here, with practical next steps.</p></div></div>
+          <p class="disclaimer">This educational tool is not a security scanner and cannot confirm whether a message, sender, or website is legitimate.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrap section-block" id="simulator">
+      <div class="section-heading"><div><div class="eyebrow">INTERACTIVE TOOL 02</div><h2>Would you spot<br><span>the warning signs?</span></h2></div><p>Practice with fictional situations inspired by common scam tactics. Choose what you would do, then read the explanation.</p></div>
+      <div class="scenario-wrap">
+        <div class="scenario-side"><div class="scenario-number">SCENARIO <b>01</b> / 03</div><div class="scenario-art">✉</div><h3>Think before<br>you respond.</h3><p>Realistic practice. Fictional messages. Safer habits.</p><div class="scenario-progress"><i class="active"></i><i></i><i></i></div></div>
+        <div class="scenario-main"><div class="scenario-top"><span class="tag tag-coral">SIMULATED SMS</span><span class="muted">Example 01 of 03</span></div><div class="scenario-message"><div class="sender"><div class="sender-icon">?</div><div><b>Unknown number</b><small>Text message · 9:41 AM</small></div></div><p id="scenarioText">Your parcel is on hold. Pay ₱25 redelivery fee through this link within 30 minutes or it will be returned.</p><div class="fake-link">delivery-update.example ↗</div></div><h4>What is the safest next step?</h4><div class="choice-list" id="scenarioChoices"></div><div class="feedback" id="scenarioFeedback" aria-live="polite">Choose an answer to see the explanation.</div><button class="btn btn-dark" id="nextScenario" disabled>Next scenario →</button></div>
+      </div>
+    </section>
+
+    <section class="quiz-section" id="quiz"><div class="section-wrap quiz-layout">
+      <div><div class="eyebrow light-eyebrow">INTERACTIVE TOOL 03</div><h2>Test your<br><span>scam-awareness.</span></h2><p>Five quick questions. Learn from each answer and see your result at the end.</p><div class="quiz-decoration">?</div></div>
+      <div class="quiz-card"><div class="quiz-top"><span id="quizProgress">QUESTION 1 OF 5</span><span id="quizScore">SCORE: 0</span></div><div class="progress-track"><i id="quizProgressBar"></i></div><h3 id="quizQuestion">What should you do if a stranger asks for your OTP?</h3><div id="quizOptions" class="quiz-options"></div><div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div><button class="btn btn-primary full-btn" id="quizNext" disabled>Check answer</button><button class="restart-link" id="restartQuiz" hidden>↻ Restart quiz</button></div>
+    </div></section>
+
+    <section class="section-wrap section-block" id="steps">
+      <div class="section-heading"><div><div class="eyebrow">A SIMPLE SAFETY ROUTINE</div><h2>Make these four steps<br><span>a daily habit.</span></h2></div><p>When a message feels suspicious, do not let pressure decide for you. Take a moment to verify.</p></div>
+      <div class="steps-grid"><div class="step-card"><b>01</b><span>STOP</span><h3>Pause before acting.</h3><p>Do not rush to click, reply, download, or pay.</p></div><div class="step-card"><b>02</b><span>CHECK</span><h3>Look for red flags.</h3><p>Notice unusual requests, pressure, and suspicious links.</p></div><div class="step-card"><b>03</b><span>VERIFY</span><h3>Use a trusted channel.</h3><p>Contact the organization using its official app or website you find independently.</p></div><div class="step-card"><b>04</b><span>PROTECT</span><h3>Keep secrets private.</h3><p>Never share passwords, PINs, or OTPs. Report suspicious activity.</p></div></div>
+    </section>
+
+    <section class="help-section"><div class="section-wrap help-layout"><div><div class="eyebrow light-eyebrow">IF YOU THINK YOU WERE SCAMMED</div><h2>Act quickly.<br><span>Get trusted help.</span></h2><p>Contact your bank or e-wallet provider immediately if money or account access may be at risk. Use official contact details from their verified app or website.</p></div><div class="help-list"><div><b>01</b><span><strong>Secure your accounts</strong><small>Change compromised passwords using the official service.</small></span></div><div><b>02</b><span><strong>Contact your provider</strong><small>Ask your bank or e-wallet to secure the account or transaction.</small></span></div><div><b>03</b><span><strong>Keep evidence</strong><small>Save screenshots, transaction references, and messages. Do not edit evidence.</small></span></div><div><b>04</b><span><strong>Report through official channels</strong><small>Seek guidance from the appropriate Philippine authorities.</small></span></div></div></div></section>
+
+    <section class="section-wrap sources-block"><div><div class="eyebrow">LEARN FROM TRUSTED SOURCES</div><h2>Keep learning.<br><span>Stay informed.</span></h2><p>Use official sources for updated advisories and reporting instructions. This student project does not replace professional or government assistance.</p></div><div class="source-links"><a href="https://www.bsp.gov.ph/" target="_blank" rel="noopener noreferrer"><span>BANGKO SENTRAL NG PILIPINAS</span><b>Consumer protection and financial education ↗</b></a><a href="https://www.cicc.gov.ph/" target="_blank" rel="noopener noreferrer"><span>CYBERCRIME INVESTIGATION AND COORDINATING CENTER</span><b>Cybercrime information and reporting ↗</b></a><a href="https://www.pnp.gov.ph/" target="_blank" rel="noopener noreferrer"><span>PHILIPPINE NATIONAL POLICE</span><b>Official police information ↗</b></a></div></section>
+  </main>
+
+  <footer><div class="footer-main"><a class="brand footer-brand" href="#home"><span class="brand-mark">S<span>✓</span></span><span>SuriBago<span class="brand-accent">Click</span><small>THINK BEFORE YOU CLICK</small></span></a><p>Building safer digital habits, one informed click at a time.</p><a href="#home" class="back-top">BACK TO TOP ↑</a></div><div class="footer-bottom"><span>© 2026 SuriBagoClick · Grade 12 ICT Performance Task</span><span>Educational prototype · Not an official government service</span></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>

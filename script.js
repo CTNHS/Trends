@@ -1,0 +1,49 @@
+// SuriBagoClick — client-side educational prototype
+const $ = (selector) => document.querySelector(selector);
+const menuToggle = $("#menuToggle"), mainNav = $("#mainNav");
+menuToggle.addEventListener("click", () => { const open = mainNav.classList.toggle("open"); menuToggle.setAttribute("aria-expanded", String(open)); });
+mainNav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { mainNav.classList.remove("open"); menuToggle.setAttribute("aria-expanded","false"); }));
+
+// Local heuristic: flags common phrases only; it does not validate URLs or determine authenticity.
+const messageInput = $("#messageInput"), charCount = $("#charCount"), result = $("#checkerResult");
+messageInput.addEventListener("input", () => charCount.textContent = `${messageInput.value.length.toLocaleString()} / 1,200`);
+const indicators = [
+  {label:"Unexpected prize or reward",terms:["you won","winner","congratulations","claim your prize","cash prize","free gift"]},
+  {label:"Upfront payment request",terms:["processing fee","pay a fee","send payment","redelivery fee","activation fee","release fee"]},
+  {label:"Urgency or pressure",terms:["act now","within 30 minutes","immediately","urgent","last chance","account will be closed","expires today"]},
+  {label:"Request for sensitive information",terms:["send your otp","share your otp","password","pin number","verify your account details","enter your otp"]},
+  {label:"Suspicious link language",terms:["click this link","tap here","claim now","verify here","http://","bit.ly/"]}
+];
+$("#analyzeBtn").addEventListener("click", () => {
+  const text = messageInput.value.trim().toLowerCase();
+  if (!text) { result.innerHTML = '<div class="result-placeholder"><span>!</span><p>Please enter sample message text to analyze.</p></div>'; messageInput.focus(); return; }
+  const found = indicators.filter(item => item.terms.some(term => text.includes(term)));
+  const level = found.length >= 3 ? "high" : found.length >= 1 ? "medium" : "low";
+  const title = level === "high" ? "Several warning signs found" : level === "medium" ? "Some warning signs found" : "No listed warning phrase found";
+  const next = level === "low" ? "Still verify the sender independently. A message can be harmful even if this tool finds no listed phrase." : "Do not click links, pay, or share private information. Contact the organization through its official app or website that you find independently.";
+  result.innerHTML = `<div class="result-heading"><b>${title}</b><span class="level-pill ${level}">${level.toUpperCase()} ATTENTION</span></div><ul>${(found.length ? found.map(x=>`<li>${x.label}</li>`).join("") : "<li>No phrase from this tool's limited warning list was detected.</li>")}</ul><div class="result-advice"><b>Safer next step:</b> ${next}</div>`;
+});
+
+// Scenario practice
+const scenarios = [
+ {text:"Your parcel is on hold. Pay ₱25 redelivery fee through this link within 30 minutes or it will be returned.",choices:["Pay quickly so the parcel is not returned.","Open the link and enter my card details.","Check the order in the courier's official app or website, without using the message link."],correct:2,why:"Correct. Unexpected payment requests and urgency are warning signs. Check delivery status using the courier's official app or a website you type/find independently."},
+ {text:"A person claiming to be your bank says your account will be blocked unless you send your OTP to confirm your identity.",choices:["Send the OTP because they say they are from the bank.","Do not share the OTP. End the conversation and contact the bank through its official channel.","Ask them to repeat the request on another number."],correct:1,why:"Correct. Keep OTPs, PINs, and passwords private. Contact your bank through the official app or a verified number, not the incoming message."},
+ {text:"A social media seller offers a popular phone at an unusually low price but demands full payment immediately through a personal wallet account.",choices:["Check seller history, independent reviews, payment protections, and compare the offer before deciding.","Pay immediately before someone else buys it.","Send a photo of my ID to prove I am a serious buyer."],correct:0,why:"Correct. An unusually low price, pressure, and risky payment terms deserve extra scrutiny. Verify the seller and use safer payment methods with buyer protection where available."}
+];
+let scenarioIndex=0;
+function renderScenario(){const s=scenarios[scenarioIndex];$("#scenarioText").textContent=s.text;$(".scenario-number").innerHTML=`SCENARIO <b>0${scenarioIndex+1}</b> / 03`;$(".scenario-top .muted").textContent=`Example 0${scenarioIndex+1} of 03`;$(".scenario-progress").innerHTML=scenarios.map((_,i)=>`<i class="${i<=scenarioIndex?"active":""}"></i>`).join("");$("#scenarioChoices").innerHTML=s.choices.map((c,i)=>`<button class="choice-btn" data-choice="${i}">${String.fromCharCode(65+i)}. ${c}</button>`).join("");$("#scenarioFeedback").textContent="Choose an answer to see the explanation.";$("#nextScenario").disabled=true;$("#nextScenario").textContent=scenarioIndex===2?"Restart scenarios ↻":"Next scenario →";$("#scenarioChoices").querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{const pick=Number(btn.dataset.choice);$("#scenarioChoices").querySelectorAll("button").forEach(b=>{b.disabled=true;if(Number(b.dataset.choice)===s.correct)b.classList.add("correct");else if(Number(b.dataset.choice)===pick)b.classList.add("incorrect")});$("#scenarioFeedback").textContent=(pick===s.correct?"✓ Well done. ":"Not quite. ")+s.why;$("#nextScenario").disabled=false;}));}
+$("#nextScenario").addEventListener("click",()=>{scenarioIndex=scenarioIndex===2?0:scenarioIndex+1;renderScenario();});renderScenario();
+
+// Five-question knowledge check
+const questions=[
+ {q:"What should you do if a stranger asks for your OTP?",o:["Share it if they know your name.","Never share it; contact the service through an official channel.","Post it in a private group for advice."],a:1,e:"An OTP is a security code. Keep it private, even if the person claims to represent a bank or service."},
+ {q:"You receive a prize notification for a contest you never joined. What is a warning sign?",o:["It asks you to pay a fee before claiming.","It includes a greeting.","It arrives during the day."],a:0,e:"Unexpected rewards paired with upfront fees are a common warning pattern. Do not pay to claim an unsolicited prize."},
+ {q:"How should you verify a suspicious message from a company?",o:["Reply to the message and ask if it is real.","Use the phone number or link in the suspicious message.","Find the company's official app or website independently and contact it there."],a:2,e:"Use a trusted contact route you find independently, rather than details supplied in the suspicious message."},
+ {q:"A message says your account will close in five minutes. What should you do?",o:["Pause and check your account through its official app or website.","Click the link immediately.","Send your password to prevent closure."],a:0,e:"Urgency is a pressure tactic. Pause and verify without using the message link."},
+ {q:"This checker finds no warning phrases. Does that prove the message is safe?",o:["Yes, it is definitely safe.","No. The tool has limits; independently verify the sender and request.","Yes, if the message has good grammar."],a:1,e:"Automated phrase checks can miss scams. No warning found is not proof of safety."}
+];
+let qIndex=0,score=0,selected=null,answered=false;
+function renderQuiz(){const q=questions[qIndex];selected=null;answered=false;$("#quizProgress").textContent=`QUESTION ${qIndex+1} OF ${questions.length}`;$("#quizScore").textContent=`SCORE: ${score}`;$("#quizProgressBar").style.width=`${(qIndex+1)/questions.length*100}%`;$("#quizQuestion").textContent=q.q;$("#quizOptions").innerHTML=q.o.map((o,i)=>`<button class="quiz-option" data-option="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join("");$("#quizFeedback").textContent="";$("#quizNext").disabled=true;$("#quizNext").textContent="Check answer";$("#restartQuiz").hidden=true;$("#quizOptions").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{if(answered)return;selected=Number(b.dataset.option);$("#quizOptions").querySelectorAll("button").forEach(x=>x.classList.toggle("selected",x===b));$("#quizNext").disabled=false;}));}
+$("#quizNext").addEventListener("click",()=>{if(!answered){if(selected===null)return;answered=true;const q=questions[qIndex];const correct=selected===q.a;if(correct)score++;$("#quizOptions").querySelectorAll("button").forEach(b=>{b.disabled=true;const n=Number(b.dataset.option);if(n===q.a)b.classList.add("correct");else if(n===selected)b.classList.add("incorrect")});$("#quizScore").textContent=`SCORE: ${score}`;$("#quizFeedback").textContent=(correct?"✓ Correct! ":"Review this one. ")+q.e;$("#quizNext").textContent=qIndex===questions.length-1?"See my result":"Next question →";}else if(qIndex<questions.length-1){qIndex++;renderQuiz();}else{showQuizResult();}});
+function showQuizResult(){const pct=Math.round(score/questions.length*100);$("#quizProgress").textContent="QUIZ COMPLETE";$("#quizQuestion").textContent=`You scored ${score} out of ${questions.length} (${pct}%).`;$("#quizOptions").innerHTML=`<div class="result-advice">${pct===100?"Excellent work!":pct>=60?"Good effort. Review the explanations to strengthen your habits.":"Keep practicing. Revisit the safety routine and try again."} Remember: awareness helps, but always verify suspicious requests independently.</div>`;$("#quizFeedback").textContent="Your score is shown for learning only.";$("#quizNext").hidden=true;$("#restartQuiz").hidden=false;}
+$("#restartQuiz").addEventListener("click",()=>{qIndex=0;score=0;$("#quizNext").hidden=false;renderQuiz();});renderQuiz();
